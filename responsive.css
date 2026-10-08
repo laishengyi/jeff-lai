@@ -244,3 +244,10 @@ header>nav>.nav-contact{height:52px;padding-block:0}
 @media(prefers-reduced-motion:reduce){.jeff-backdrop{transform:rotate(-5deg)}}
 @media(min-width:861px){.jeff-backdrop{font-size:calc(var(--bust) * .64);bottom:calc(var(--bust) * .4);right:calc(var(--bust) * .12)}}
 @media(max-width:860px){.jeff-backdrop{font-size:44cqw;top:5%;left:3%}}
+/* Wide or short desktop windows: cap the hero (and the header that aligns with it) to a width
+   that tracks the window height, so the copy and the bust stay close enough to read together. */
+@media(min-width:1024px){
+ :root{--content-w:min(1280px,90vw,max(900px,calc((100svh - var(--header-height,64px)) * 2.1)))}
+ header{padding-inline:max(5vw,calc((100% - var(--content-w)) / 2))}
+ .hero-inner{max-width:none;width:var(--content-w);margin-inline:auto}
+}

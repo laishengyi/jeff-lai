@@ -11,7 +11,7 @@ body{font-weight:400;overflow-x:clip}.section{position:relative;max-width:none;m
 @media(max-width:680px) and (max-height:700px){.hero h1{font-size:32px}}
 @media(prefers-reduced-motion:reduce){}
 /* Final material treatment; portrait always fits the full supplied image. */
-:root{--paper-texture:url('assets/fine-paper.png');--paper-ivory:#f0ede2;--paper-sage:#dce2ce;--paper-moss:#65754e;--paper-clay:#b87352}
+:root{--paper-texture:url('assets/fine-paper.webp');--paper-ivory:#f0ede2;--paper-sage:#dce2ce;--paper-moss:#65754e;--paper-clay:#b87352}
 body,header,.hero,.career-strip,#about,#journey,#work,.education,.contact,footer{background-image:var(--paper-texture);background-size:640px 640px;background-repeat:repeat;background-blend-mode:multiply}
 body,header,.hero,#about,.contact{background-color:var(--paper-ivory)}header{backdrop-filter:none;border-bottom:1px solid #43503117}.hero{background-position:0 0}.career-strip{background-color:#dce2ce;border-top-color:#b8c2a2;border-bottom-color:#b8c2a2}
 #journey{background-color:#e3e7d5}#work{background-color:#384a34}.education{background-color:#e8e4d5}footer{background-color:#303f2a}
