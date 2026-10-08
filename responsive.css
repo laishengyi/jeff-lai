@@ -251,3 +251,13 @@ header>nav>.nav-contact{height:52px;padding-block:0}
  header{padding-inline:max(5vw,calc((100% - var(--content-w)) / 2))}
  .hero-inner{max-width:none;width:var(--content-w);margin-inline:auto}
 }
+/* Line icons (inline SVG sprite) replace arrow/play characters, which iOS can swap for emoji. */
+.icon{display:inline-block;width:1em;height:1em;vertical-align:-.14em;flex-shrink:0;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;overflow:visible}
+.play-icon{font-size:12px;display:inline-flex}
+.gallery-tools button{display:inline-grid;place-items:center}
+.gallery-tools button .icon{width:20px;height:20px;stroke-width:1.4}
+.gallery-tools>span .icon{margin-left:4px}
+.nav-arrow .icon{width:.85em;height:.85em}
+/* Safari paints the composited (transformed) signature only inside its layout box, clipping
+   the script's overhanging strokes; pad the box around the glyphs and cancel it with margins. */
+.jeff-backdrop{padding:.25em .4em;margin:-.25em -.4em;white-space:nowrap;width:auto}
