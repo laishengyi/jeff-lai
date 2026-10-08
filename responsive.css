@@ -143,8 +143,8 @@ header{height:var(--header-height)}
 /* A quiet, touch-friendly navigation panel. */
 header{align-items:center}
 header .logo{height:52px;display:flex;align-items:center;flex-shrink:0}
-header .logo>span{font-size:26px;line-height:1.15;letter-spacing:3px;font-weight:500}
-header .logo small{display:block;font-size:10px;line-height:1.2;letter-spacing:3.5px;margin-top:6px}
+header .logo>span{font-size:19px;line-height:1.15;letter-spacing:3px;font-weight:500}
+header .logo small{display:block;font-size:8px;line-height:1.2;letter-spacing:3px;margin-top:5px}
 header>nav{align-items:center;min-height:52px}
 header>nav>a{display:inline-flex;align-items:center;justify-content:center;min-height:52px}
 header>nav>.nav-contact{height:52px;padding-block:0}
@@ -173,7 +173,7 @@ header>nav>.nav-contact{height:52px;padding-block:0}
  header .mobile-menu nav>a:focus-visible{outline:2px solid #526842;outline-offset:-2px}
 }
 @media(max-width:1023px){header .logo{height:48px}header .mobile-menu{align-self:center}}
-@media(max-width:680px){header .logo>span{font-size:24px;letter-spacing:2px}header .logo small{font-size:9px;letter-spacing:3px;margin-top:5px}}
+@media(max-width:680px){header .logo>span{font-size:17px;letter-spacing:2px}header .logo small{font-size:7px;letter-spacing:2.5px;margin-top:4px}}
 /* Desktop opening gets a full viewport; the career strip follows below it. */
 @media(min-width:861px){
  .first-screen{height:auto;min-height:100svh;display:block;padding-top:var(--header-height)}
@@ -187,7 +187,7 @@ header>nav>.nav-contact{height:52px;padding-block:0}
 }
 /* Depth follows scroll position rather than looping or moving on its own. */
 .portrait-stage{perspective:1100px}
-.hero-portrait{transform:translate3d(0,var(--portrait-shift,0px),0) rotateX(var(--portrait-tilt,0deg));transform-origin:center bottom;filter:drop-shadow(0 var(--portrait-shadow-y,10px) var(--portrait-shadow-blur,14px) #10231535)}
+.hero-portrait{transform:translate3d(0,var(--portrait-shift,0px),0) scale(var(--portrait-scale,1)) rotateX(var(--portrait-tilt,0deg));transform-origin:center bottom;filter:drop-shadow(0 var(--portrait-shadow-y,10px) var(--portrait-shadow-blur,14px) #0a1a0f66);will-change:transform,filter}
 @media(prefers-reduced-motion:reduce){.hero-portrait{transform:none!important;filter:none;will-change:auto}}
 .portrait-stage{container-type:inline-size;isolation:isolate}
 .jeff-backdrop{position:absolute;z-index:0;pointer-events:none;user-select:none;left:0;right:0;top:28%;text-align:center;font-family:Georgia,'Times New Roman',serif;font-style:italic;font-weight:500;font-size:clamp(150px,25vw,310px);font-size:clamp(120px,51cqw,340px);line-height:1;letter-spacing:-.07em;color:#efe9d6;opacity:.92;transform:translateY(var(--letter-shift,0px)) rotate(-7deg);text-shadow:0 2px 0 #ffffff18}
@@ -223,3 +223,24 @@ header>nav>.nav-contact{height:52px;padding-block:0}
 .work-jump{display:flex;flex-wrap:wrap;gap:12px;margin:0 0 36px;color:inherit;font-size:13px}
 .work-jump a{display:inline-flex;align-items:center;min-height:44px;padding:8px 16px;border:1px solid #b8c8a455;border-radius:2px;transition:background-color .2s}
 .work-jump a:hover,.work-jump a:focus-visible{color:#f5f0df;background:#ffffff12;border-color:#d6dfc2}
+/* Large signature sits behind the portrait, spanning head to chest. */
+.jeff-backdrop{top:22%;left:-6%;width:auto;font-size:clamp(170px,76cqw,760px);letter-spacing:-.06em}
+@media(max-width:860px){.jeff-backdrop{top:10%;left:1%;font-size:64cqw}}
+/* Desktop: larger bust that runs past the fold, so the scroll lift never exposes its cropped edge. */
+@media(min-width:861px){
+ /* Size and place the bust from the stage width only, so the composition keeps one proportion
+    as the window resizes; very short windows cap it so the head stays below the header. */
+ .portrait-stage{--bust:min(100cqw,calc((100svh - var(--header-height,64px)) * .8))}
+ .hero-portrait{inset:auto 0 calc(var(--bust) * -.19) auto;width:var(--bust);height:auto;max-height:none;object-fit:contain}
+ .jeff-backdrop{top:auto;bottom:calc(var(--bust) * .47);left:auto;right:calc(var(--bust) * .07);font-size:calc(var(--bust) * .78);opacity:1;color:#f1ead3}
+ .hero h1.integrator-title{font-size:clamp(24px,8.4cqw,48px)}
+ .hero .intro{font-size:14px;line-height:1.9;max-width:440px}
+ .hero .eyebrow{font-size:9px}
+ .hero-actions{margin-top:22px}
+}
+@media(max-width:860px){.hero-portrait{inset:auto 0 -70px auto;height:calc(85% + 70px);max-height:none}}
+/* Brush-script signature; Georgia italic remains the fallback while the web font loads. */
+.jeff-backdrop{font-family:'Marck Script',Georgia,'Times New Roman',serif;font-style:normal;font-weight:400;letter-spacing:-.02em;transform:translateY(var(--letter-shift,0px)) rotate(-5deg)}
+@media(prefers-reduced-motion:reduce){.jeff-backdrop{transform:rotate(-5deg)}}
+@media(min-width:861px){.jeff-backdrop{font-size:calc(var(--bust) * .64);bottom:calc(var(--bust) * .4);right:calc(var(--bust) * .12)}}
+@media(max-width:860px){.jeff-backdrop{font-size:44cqw;top:5%;left:3%}}
