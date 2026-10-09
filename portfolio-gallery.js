@@ -20,3 +20,17 @@ document.querySelectorAll('.portfolio-gallery').forEach(gallery => {
   window.addEventListener('load', update);
   update();
 });
+
+// Lazy images in a sideways gallery only load as each card scrolls into the strip, which
+// shows up as blank cards on a phone mid-swipe. Start the whole gallery loading once it is
+// within a screen of the viewport instead.
+if ('IntersectionObserver' in window) {
+  const warm = new IntersectionObserver(items => {
+    items.forEach(item => {
+      if (!item.isIntersecting) return;
+      item.target.querySelectorAll('img[loading="lazy"]').forEach(img => { img.loading = 'eager'; });
+      warm.unobserve(item.target);
+    });
+  }, { rootMargin: '100% 0px' });
+  document.querySelectorAll('.portfolio-gallery').forEach(gallery => warm.observe(gallery));
+}

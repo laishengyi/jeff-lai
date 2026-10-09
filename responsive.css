@@ -307,3 +307,5 @@ header>nav>.nav-contact{height:52px;padding-block:0}
  #journey .entry-body{margin:0;padding:0 10px 28px 0}
 }
 @media(prefers-reduced-motion:reduce){#journey .entry,#journey .entry::after,#journey .entry .plus{transition:none}}
+/* Reserve the demo video's frame before its poster or metadata arrives. */
+.video-frame video{aspect-ratio:1440/704;height:auto;background:#0e1410}
