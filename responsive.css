@@ -264,3 +264,46 @@ header>nav>.nav-contact{height:52px;padding-block:0}
 /* Phone/tablet: clip only the bottom of the portrait stage (to hide the cropped bust edge),
    so the large signature can run past the stage's sides and top up to the screen edge. */
 @media(max-width:860px){.portrait-stage{overflow:visible;clip-path:inset(-50% -50% 0 -50%)}}
+/* Journey timeline: a continuous rail with a node per entry, a clear round toggle,
+   readable meta text and filter counts. Scoped to #journey to sit above older layers. */
+#journey .timeline{--pad:16px;--year:150px;--gap:48px;--rail:calc(var(--pad) + var(--year) + var(--gap) / 2);border-top:0;position:relative}
+#journey .entry{position:relative;border-top:1px solid #c9d1bc;transition:background-color .25s}
+#journey .entry:first-child{border-top:0}
+#journey .entry::before{content:'';position:absolute;left:var(--rail);top:0;bottom:0;width:1px;background:#b3bfa1}
+/* The rail starts at the first visible node and ends at the last, including after filtering. */
+#journey .entry:not([hidden]):not(:not([hidden]) ~ .entry)::before{top:46px}
+#journey .entry:not([hidden]):not(:has(~ .entry:not([hidden])))::before{bottom:auto;height:46px}
+#journey .entry:not([hidden]):not(:not([hidden]) ~ .entry):not(:has(~ .entry:not([hidden])))::before{display:none}
+#journey .entry::after{content:'';position:absolute;left:calc(var(--rail) - 6px);top:40px;width:11px;height:11px;border-radius:50%;background:#e3e7d5;border:1.5px solid #7d8d69;box-sizing:border-box;transition:background-color .25s,border-color .25s,box-shadow .25s}
+#journey .entry[open]::after{background:#9a6143;border-color:#9a6143;box-shadow:0 0 0 5px #9a614322}
+#journey .entry summary{grid-template-columns:var(--year) minmax(0,1fr) 44px;gap:var(--gap);padding:28px var(--pad);align-items:start}
+#journey .entry .year{line-height:1.1}
+#journey .entry .category{font-size:10px;letter-spacing:2px;color:#5c6c4d}
+#journey .entry h3{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;margin:6px 0 4px}
+#journey .entry-title p{font-size:14px;line-height:1.75;color:#5f6e55}
+#journey .award-badge{font-family:Arial,'PingFang TC','Noto Sans TC',sans-serif;font-size:11px;font-weight:600;letter-spacing:2px;line-height:1;padding:6px 9px 6px 11px;border:1px solid #9a6143;color:#8a5538;background:#f3e6d8;border-radius:2px}
+#journey .entry .plus{align-self:center;display:grid;place-items:center;width:40px;height:40px;border:1px solid #9aa888;border-radius:50%;font-size:20px;line-height:1;color:#55684a;transition:transform .3s,background-color .2s,color .2s,border-color .2s}
+#journey .entry summary:hover{background:#f4f1e455}
+#journey .entry summary:hover .plus{background:#526344;border-color:#526344;color:#f6f3e9}
+#journey .entry[open] .plus{transform:rotate(45deg);background:#526344;border-color:#526344;color:#f6f3e9}
+#journey .entry-body{margin-left:calc(var(--pad) + var(--year) + var(--gap));padding:0 calc(var(--pad) + 60px) 36px 0}
+#journey .filters button{display:inline-flex;align-items:center;gap:8px}
+#journey .filters .count{font-size:10px;font-variant-numeric:tabular-nums;min-width:18px;padding:2px 5px;border-radius:9px;background:#52634418;color:inherit;text-align:center;line-height:1.3}
+#journey .filters button.active .count{background:#fff6e430}
+@media(max-width:960px){#journey .timeline{--year:104px;--gap:32px}}
+@media(max-width:680px){
+ #journey .timeline{--pad:0px;--rail:7px}
+ #journey .entry{padding-left:26px}
+ #journey .entry::after{top:33px}
+ #journey .entry:not([hidden]):not(:not([hidden]) ~ .entry)::before{top:38px}
+ #journey .entry:not([hidden]):not(:has(~ .entry:not([hidden])))::before{height:38px}
+ #journey .entry summary{grid-template-columns:minmax(0,1fr) 40px;grid-template-areas:"year toggle" "title toggle";gap:6px 12px;padding:24px 10px 24px 0}
+ #journey .entry .year{grid-area:year;display:flex;align-items:baseline;gap:10px;font-size:24px}
+ #journey .entry .year span{margin-top:0}
+ #journey .entry-title{grid-area:title}
+ #journey .entry .plus{grid-area:toggle;width:36px;height:36px}
+ #journey .entry .category{font-size:9px;letter-spacing:1.4px}
+ #journey .entry h3{font-size:23px}
+ #journey .entry-body{margin:0;padding:0 10px 28px 0}
+}
+@media(prefers-reduced-motion:reduce){#journey .entry,#journey .entry::after,#journey .entry .plus{transition:none}}

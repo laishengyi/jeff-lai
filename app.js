@@ -25,7 +25,11 @@ function filterEntries(category) {
     if (!entry.hidden) entry.classList.add('visible');
   });
 }
-filters.forEach(button => button.addEventListener('click', () => filterEntries(button.dataset.filter)));
+filters.forEach(button => {
+  const total = button.dataset.filter === 'all' ? entries.length : entries.filter(entry => entry.dataset.category === button.dataset.filter).length;
+  if (button.insertAdjacentHTML) button.insertAdjacentHTML('beforeend', `<span class="count" aria-label="共 ${total} 筆">${total}</span>`);
+  button.addEventListener('click', () => filterEntries(button.dataset.filter));
+});
 
 function openEntry(id) {
   const entry = entries.find(item => item.id === id);
