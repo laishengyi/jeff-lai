@@ -1,0 +1,89 @@
+/* Motion layer: an unhurried, editorial entrance for each part of the page.
+   Every rule is scoped to html.motion, which the head script adds only when the visitor
+   has not asked for reduced motion; html.motion-off (set after 2.5s if motion.js never ran)
+   shows everything immediately. Only opacity, transform, translate and clip-path animate. */
+:root{--m-ease:cubic-bezier(.22,1,.36,1);--m-ink:cubic-bezier(.65,.05,.25,1)}
+
+/* The motion layer replaces the older whole-section fade. */
+.motion .reveal,.motion.js .reveal{opacity:1;transform:none;transition:none}
+
+/* ---------- Shared entrances ---------- */
+@keyframes m-rise{from{opacity:0;transform:translate3d(0,32px,0)}to{opacity:1;transform:none}}
+@keyframes m-line{from{transform:translate3d(0,108%,0)}to{transform:none}}
+@keyframes m-fade{from{opacity:0}to{opacity:1}}
+.motion:not(.motion-off) [data-m="rise"]:not(.m-done){opacity:0}
+.motion [data-m="rise"].m-in:not(.m-done){animation:m-rise 1.1s var(--m-ease) both;animation-delay:calc(var(--i,0) * 90ms)}
+
+.m-line{display:block;overflow:hidden;padding:.08em 0 .12em;margin:-.08em 0 -.12em}
+.m-line-inner{display:block}
+.motion:not(.motion-off) [data-m="lines"]:not(.m-in) .m-line-inner{transform:translate3d(0,108%,0)}
+.motion [data-m="lines"].m-in .m-line-inner{animation:m-line 1.2s var(--m-ease) both;animation-delay:calc(var(--i,0) * 120ms + var(--m-delay,0ms))}
+
+/* ---------- Hero opening ---------- */
+.motion .hero-copy{animation:none}
+.motion:not(.motion-off) .hero .eyebrow,
+.motion:not(.motion-off) .hero .intro,
+.motion:not(.motion-off) .hero-actions,
+.motion:not(.motion-off) .hero-links{opacity:0}
+.motion.m-ready .hero [data-m="lines"] .m-line-inner{animation:m-line 1.3s var(--m-ease) both;animation-delay:calc(var(--i,0) * 140ms + 200ms)}
+.motion.m-ready .hero .eyebrow{animation:m-rise 1s var(--m-ease) .05s both}
+.motion.m-ready .hero .intro{animation:m-rise 1.1s var(--m-ease) .55s both}
+.motion.m-ready .hero-actions{animation:m-rise 1.1s var(--m-ease) .7s both}
+.motion.m-ready .hero-links{animation:m-rise 1.1s var(--m-ease) .85s both}
+
+/* The signature is written from left to right, like a brush stroke. */
+@keyframes m-write{from{clip-path:inset(-20% 100% -20% 0)}to{clip-path:inset(-20% -5% -20% 0)}}
+.motion:not(.motion-off) .jeff-backdrop{clip-path:inset(-20% 100% -20% 0)}
+.motion.m-ready .jeff-backdrop{animation:m-write 1.9s var(--m-ink) .45s both}
+
+/* The portrait settles up into place; `translate` composes with the scroll parallax transform. */
+@keyframes m-portrait{from{opacity:0;translate:0 48px}to{opacity:1;translate:0 0}}
+.motion .hero-portrait{animation:none}
+.motion:not(.motion-off) .hero-portrait{opacity:0}
+.motion.m-ready .hero-portrait{animation:m-portrait 1.5s var(--m-ease) .2s both}
+
+/* A faint moss-and-ochre light drifting behind the hero. */
+@keyframes m-drift{0%{transform:translate3d(-4%,-2%,0) scale(1)}50%{transform:translate3d(3%,2%,0) scale(1.08)}100%{transform:translate3d(-2%,4%,0) scale(1.02)}}
+.motion .hero{isolation:isolate}
+.motion .hero::before{content:'';position:absolute;inset:-20%;z-index:0;pointer-events:none;
+ background:radial-gradient(38% 42% at 72% 38%,#a9bd8c2e,transparent 70%),radial-gradient(30% 34% at 22% 72%,#c9a36a1f,transparent 70%),radial-gradient(26% 30% at 88% 82%,#d8e2c414,transparent 70%);
+ animation:m-drift 26s ease-in-out infinite alternate}
+.motion .hero-inner{position:relative;z-index:1}
+
+/* ---------- Career strip: the line draws, then the stops light up ---------- */
+.motion:not(.motion-off) .career-track[data-m-draw]:not(.m-in)::before{transform:scaleX(0)}
+.motion .career-track[data-m-draw]::before{transform-origin:left center;transition:transform 1.6s var(--m-ink)}
+.motion .career-track[data-m-draw] .track-dot{transition:transform .5s var(--m-ease),box-shadow .5s}
+.motion:not(.motion-off) .career-track[data-m-draw]:not(.m-in) .track-dot{transform:scale(0)}
+.motion .career-track.m-in > a:nth-child(1) .track-dot{transition-delay:.25s}
+.motion .career-track.m-in > a:nth-child(2) .track-dot{transition-delay:.45s}
+.motion .career-track.m-in > a:nth-child(3) .track-dot{transition-delay:.65s}
+.motion .career-track.m-in > a:nth-child(4) .track-dot{transition-delay:.85s}
+.motion .career-track.m-in > a:nth-child(5) .track-dot{transition-delay:1.05s}
+.motion .career-track.m-in > a:nth-child(6) .track-dot{transition-delay:1.25s}
+
+/* ---------- Journey timeline: the rail grows down, the node pops in ---------- */
+.motion #journey .entry[data-m-draw]::before{transform-origin:top center;transition:transform 1s var(--m-ink)}
+.motion:not(.motion-off) #journey .entry[data-m-draw]:not(.m-in)::before{transform:scaleY(0)}
+.motion #journey .entry[data-m-draw]::after{transition:transform .6s var(--m-ease) .35s,background-color .25s,border-color .25s,box-shadow .25s}
+.motion:not(.motion-off) #journey .entry[data-m-draw]:not(.m-in)::after{transform:scale(0)}
+.motion #journey .entry[data-m-draw] summary{transition:opacity .9s var(--m-ease) .15s,transform 1s var(--m-ease) .15s,background-color .2s}
+.motion:not(.motion-off) #journey .entry[data-m-draw]:not(.m-in) summary{opacity:0;transform:translate3d(0,24px,0)}
+
+/* ---------- Hover depth ---------- */
+.motion .gallery-card{transition:transform .5s var(--m-ease),box-shadow .5s var(--m-ease)}
+.motion .gallery-card.m-done:hover{transform:translate3d(0,-6px,0);box-shadow:0 18px 36px #1a2a1d2e}
+.motion .restaurant-card>img{transition:transform 1.2s var(--m-ease)}
+.motion .restaurant-card:hover>img{transform:scale(1.04)}
+.motion .restaurant-card{overflow:hidden}
+
+/* A sheen passes across the primary button on hover. */
+.motion .button{position:relative;overflow:hidden;isolation:isolate}
+.motion .button::after{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(105deg,transparent 30%,#fff4dc55 50%,transparent 70%);transform:translateX(-120%);transition:transform .9s var(--m-ease)}
+.motion .button:hover::after{transform:translateX(120%)}
+
+/* ---------- Reading progress ---------- */
+.m-progress{position:fixed;left:0;right:0;top:0;height:2px;z-index:60;background:linear-gradient(90deg,#9a6143,#c7955f);transform:scaleX(0);transform-origin:left center;pointer-events:none}
+
+/* Safety: if motion.js never ran, show everything as it is. */
+.motion-off .hero-portrait,.motion-off .jeff-backdrop{animation:none;opacity:1;clip-path:none}
