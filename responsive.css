@@ -242,8 +242,8 @@ header>nav>.nav-contact{height:52px;padding-block:0}
 /* Brush-script signature; Georgia italic remains the fallback while the web font loads. */
 .jeff-backdrop{font-family:'Marck Script',Georgia,'Times New Roman',serif;font-style:normal;font-weight:400;letter-spacing:-.02em;transform:translateY(var(--letter-shift,0px)) rotate(-5deg)}
 @media(prefers-reduced-motion:reduce){.jeff-backdrop{transform:rotate(-5deg)}}
-@media(min-width:861px){.jeff-backdrop{font-size:calc(var(--bust) * .64);bottom:calc(var(--bust) * .4);right:calc(var(--bust) * .12)}}
-@media(max-width:860px){.jeff-backdrop{font-size:44cqw;top:5%;left:3%}}
+@media(min-width:861px){.jeff-backdrop{font-size:calc(var(--bust) * .768);bottom:calc(var(--bust) * .4);right:calc(var(--bust) * .06)}}
+@media(max-width:860px){.jeff-backdrop{font-size:61.3cqw;top:4%;left:0%}}
 /* Wide or short desktop windows: cap the hero (and the header that aligns with it) to a width
    that tracks the window height, so the copy and the bust stay close enough to read together. */
 @media(min-width:1024px){
@@ -261,3 +261,6 @@ header>nav>.nav-contact{height:52px;padding-block:0}
 /* Safari paints the composited (transformed) signature only inside its layout box, clipping
    the script's overhanging strokes; pad the box around the glyphs and cancel it with margins. */
 .jeff-backdrop{padding:.25em .4em;margin:-.25em -.4em;white-space:nowrap;width:auto}
+/* Phone/tablet: clip only the bottom of the portrait stage (to hide the cropped bust edge),
+   so the large signature can run past the stage's sides and top up to the screen edge. */
+@media(max-width:860px){.portrait-stage{overflow:visible;clip-path:inset(-50% -50% 0 -50%)}}
